@@ -28,7 +28,7 @@ const requestHandler = (req,res) => {
         req.on("end", () => {
             const parsedBody = Buffer.concat(body).toString();
             console.log(parsedBody);
-            let user = parsedBody.split("=")[1];
+            let user = parsedBody.split("=")[0];
             console.log(user);
             fs.writeFileSync('user.txt', user, () => {
                 res.statusCode = 302;
@@ -46,3 +46,4 @@ const requestHandler = (req,res) => {
 };
 exports.requestHandler = requestHandler;
 exports.userText = "Exported user text";
+
