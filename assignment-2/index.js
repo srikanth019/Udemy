@@ -1,25 +1,24 @@
 const express = require("express");
 
+//parsing incoming requests
+
+const bodyParser = require("body-parser");
+
 const app = express();
+app.get(bodyParser.urlencoded({extended: false})); 
 
-app.use("/",(req,res,next) => {
-    console.log("This first middleware and always run");
-    next();
+app.use("/add-product",(req,res,next) => {
+    res.send('<form action="/product" method="POST"><input type="text" name="Product-Name"/><button type="submit">add-product</button></form>');
 });
 
-
-app.use("/user",(req,res,next) => {
-    console.log("It the another Middleware");
-    res.send("<h1>Hello from Express server!</h1>")
+app.post("/product",(req,res,next) => {
+    console.log(req.body);
+    res.redirect("/");
 });
 
-app.use("/",(req,res,next) => {
-    console.log("This last middleware");
-    res.send("Thank you");
+app.use("/",(req,res,next) => { 
+    res.send("<h1>Thank you!</h1>");
 });
 
-
-
-
-app.listen(3004);
+app.listen(3000);
 
